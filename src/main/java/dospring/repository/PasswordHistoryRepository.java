@@ -6,6 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.java.dospring.model.PasswordHistory;
 
+/**
+ * PasswordHistoryRepository.
+ *
+ * <p>Enterprise V4+ documentation block.
+ */
 public interface PasswordHistoryRepository extends JpaRepository<PasswordHistory, Long> {
   List<PasswordHistory> findTop5ByUserIdOrderByCreatedAtDesc(Long userId);
 }

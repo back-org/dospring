@@ -6,6 +6,11 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+/**
+ * SignUpRequest.
+ *
+ * <p>Enterprise V4+ documentation block.
+ */
 public class SignUpRequest {
 	  @NotBlank
 	  @Size(min = 3, max = 20)

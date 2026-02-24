@@ -9,6 +9,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+/**
+ * PaymentResponse.
+ *
+ * <p>Enterprise V4+ documentation block.
+ */
 public class PaymentResponse implements Serializable{
     private String razorpayOrderId;
     private String razorpayPaymentId;

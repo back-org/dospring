@@ -11,6 +11,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+/**
+ * OrderRequest.
+ *
+ * <p>Enterprise V4+ documentation block.
+ */
 public class OrderRequest implements Serializable{
     private String userName;
     private String customerName;

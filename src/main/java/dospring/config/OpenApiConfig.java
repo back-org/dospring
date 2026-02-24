@@ -9,6 +9,11 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 
 @Configuration
+/**
+ * OpenApiConfig.
+ *
+ * <p>Enterprise V4+ documentation block.
+ */
 public class OpenApiConfig {
 	
 	@Bean

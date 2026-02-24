@@ -9,6 +9,7 @@ import com.java.dospring.payload.request.LoginRequest;
 import com.java.dospring.payload.request.RefreshRequest;
 import com.java.dospring.payload.request.SignUpRequest;
 import com.java.dospring.payload.response.AuthResponse;
+import com.java.dospring.payload.response.SessionInfoResponse;
 import com.java.dospring.repository.PasswordHistoryRepository;
 import com.java.dospring.repository.RefreshTokenRepository;
 import com.java.dospring.repository.RoleRepository;
@@ -26,6 +27,7 @@ import java.util.Base64;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -255,6 +257,76 @@ public class AuthService {
     refreshTokenRepository.saveAll(tokens);
   }
 
+  /**
+   * Lists active refresh-token sessions for the current user.
+   *
+   * <p>Never returns refresh token values.
+   */
+  @Transactional(readOnly = true)
+  public List<SessionInfoResponse> listActiveSessions(Long userId) {
+    Instant now = Instant.now();
+    List<RefreshToken> sessions = refreshTokenRepository.findActiveSessions(userId, now);
+    List<SessionInfoResponse> out = new ArrayList<>(sessions.size());
+    for (RefreshToken rt : sessions) {
+      out.add(new SessionInfoResponse(
+          rt.getId(),
+          rt.getDeviceId(),
+          rt.getIpAddress(),
+          rt.getUserAgent(),
+          rt.getCreatedAt(),
+          rt.getLastUsedAt(),
+          rt.getExpiresAt()
+      ));
+    }
+    return out;
+  }
+
+  /**
+   * Revokes a refresh-token session record by its id.
+   */
+  @Transactional
+  public void revokeSession(Long userId, Long sessionId) {
+    RefreshToken rt = refreshTokenRepository.findById(sessionId)
+        .orElseThrow(() -> new IllegalArgumentException("Session not found"));
+    if (!rt.getUser().getId().equals(userId)) {
+      throw new IllegalArgumentException("Session does not belong to current user");
+    }
+    if (rt.getRevokedAt() == null) {
+      rt.setRevokedAt(Instant.now());
+      refreshTokenRepository.save(rt);
+    }
+  }
+
+  /**
+   * Changes the user's password with policy + history enforcement.
+   *
+   * <p>Security: revokes all refresh tokens after successful change.
+   */
+  @Transactional
+  public void changePassword(Long userId, String currentPassword, String newPassword) {
+    User user = userRepository.findById(userId)
+        .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+    if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+      throw new BadCredentialsException("Current password is invalid");
+    }
+
+    validatePassword(newPassword);
+    enforcePasswordHistory(userId, newPassword);
+
+    user.setPassword(passwordEncoder.encode(newPassword));
+    user.setPasswordChangedAt(Instant.now());
+    userRepository.save(user);
+
+    passwordHistoryRepository.save(PasswordHistory.builder()
+        .user(user)
+        .passwordHash(user.getPassword())
+        .build());
+
+    // Force re-login on all devices.
+    logoutAll(userId);
+  }
+
   private String mintRefreshToken(User user, String deviceId, HttpServletRequest request) {
     String token = randomToken();
     RefreshToken rt = RefreshToken.builder()
@@ -315,6 +387,19 @@ public class AuthService {
     String low = password.toLowerCase();
     if (common.stream().anyMatch(low::contains)) {
       throw new IllegalArgumentException("Password too common");
+    }
+  }
+
+  /**
+   * Prevents re-using the last N password hashes.
+   */
+  private void enforcePasswordHistory(Long userId, String newPasswordRaw) {
+    // Repository returns last 5; property pwdHistory kept for future extension.
+    List<PasswordHistory> history = passwordHistoryRepository.findTop5ByUserIdOrderByCreatedAtDesc(userId);
+    for (PasswordHistory h : history) {
+      if (passwordEncoder.matches(newPasswordRaw, h.getPasswordHash())) {
+        throw new IllegalArgumentException("Password was used recently. Choose a new one.");
+      }
     }
   }
 }

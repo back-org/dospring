@@ -11,6 +11,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import com.java.dospring.crypto.EncryptedStringConverter;
+
 /**
  * User entity.
  *
@@ -44,7 +46,8 @@ public class User extends Auditable implements Serializable {
   @NotBlank
   @Size(max = 120)
   @Email
-  @Column(nullable = false, length = 120)
+  @Convert(converter = EncryptedStringConverter.class)
+  @Column(nullable = false, length = 512)
   private String email;
 
   @NotBlank

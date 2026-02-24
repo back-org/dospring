@@ -35,6 +35,18 @@ app:
       min-length: ${AUTH_PWD_MIN_LENGTH:12}
       history: ${AUTH_PWD_HISTORY:5}
 
+  # Optional encryption-at-rest (AES-256-GCM) for selected columns.
+  # Provide APP_CRYPTO_KEY_BASE64 in prod.
+  crypto:
+    key-base64: ${APP_CRYPTO_KEY_BASE64:}
+
+  # Optional distributed rate limiting (Redis)
+  redis:
+    enabled: ${APP_REDIS_ENABLED:false}
+    host: ${APP_REDIS_HOST:localhost}
+    port: ${APP_REDIS_PORT:6379}
+    ssl: ${APP_REDIS_SSL:false}
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html

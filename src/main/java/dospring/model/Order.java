@@ -5,6 +5,8 @@ import java.io.Serializable;
 import jakarta.persistence.*;
 import lombok.*;
 
+import com.java.dospring.crypto.EncryptedStringConverter;
+
 /**
  * Payment order (Razorpay).
  * In production, consider storing only what is necessary and encrypting sensitive data at rest.
@@ -30,12 +32,14 @@ public class Order extends Auditable implements Serializable {
   @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_order_user"))
   private User user;
 
-  @Column(name = "razorpay_payment_id", length = 120)
+  @Convert(converter = EncryptedStringConverter.class)
+  @Column(name = "razorpay_payment_id", length = 512)
   private String razorpayPaymentId;
 
   @Column(name = "razorpay_order_id", length = 120, nullable = false)
   private String razorpayOrderId;
 
-  @Column(name = "razorpay_signature", length = 200)
+  @Convert(converter = EncryptedStringConverter.class)
+  @Column(name = "razorpay_signature", length = 512)
   private String razorpaySignature;
 }

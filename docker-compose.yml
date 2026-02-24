@@ -1,4 +1,14 @@
 services:
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
   db:
     image: postgres:16
     environment:
@@ -16,6 +26,8 @@ services:
   api:
     build: .
     depends_on:
+      redis:
+        condition: service_healthy
       db:
         condition: service_healthy
     environment:
@@ -25,5 +37,10 @@ services:
       SPRING_DATASOURCE_PASSWORD: dospring
       JWT_SECRET: "change-me-in-env-please-change-me-in-env-please"
       APP_CORS_ORIGINS: "http://localhost:3000"
+      APP_REDIS_ENABLED: "true"
+      APP_REDIS_HOST: "redis"
+      APP_REDIS_PORT: "6379"
+      # Optional: set your AES key (base64 of 32 bytes)
+      # APP_CRYPTO_KEY_BASE64: "..."
     ports:
       - "8080:8080"

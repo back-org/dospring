@@ -74,6 +74,14 @@
       <version>${springdoc.version}</version>
     </dependency>
 
+    <!-- Source: https://mvnrepository.com/artifact/com.bucket4j/bucket4j_jdk17-core -->
+    <dependency>
+      <groupId>com.bucket4j</groupId>
+      <artifactId>bucket4j_jdk17-core</artifactId>
+      <version>8.16.0</version>
+      <scope>compile</scope>
+    </dependency>
+
     <!-- Cache -->
     <dependency>
       <groupId>com.github.ben-manes.caffeine</groupId>

@@ -15,6 +15,11 @@ import com.java.dospring.model.User;
 
 
 
+/**
+ * UserDetailsImpl.
+ *
+ * <p>Enterprise V4+ documentation block.
+ */
 public class UserDetailsImpl implements UserDetails {
 	  private static final long serialVersionUID = 1L;
 	  private Long id;

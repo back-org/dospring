@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "${app.security.cors-origins}", maxAge = 3600)
 @RestController
 @RequestMapping("/api/test")
+/**
+ * TestController.
+ *
+ * <p>Enterprise V4+ documentation block.
+ */
 public class TestController {
   @GetMapping("/all")
   public String allAccess() {

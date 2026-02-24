@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.Map;
 
 @RestControllerAdvice
+/**
+ * GlobalExceptionHandler.
+ *
+ * <p>Enterprise V4+ documentation block.
+ */
 public class GlobalExceptionHandler {
 
   @ExceptionHandler(IllegalArgumentException.class)

@@ -1,12 +1,15 @@
 package com.java.dospring.controller;
 
 import com.java.dospring.payload.request.LoginRequest;
+import com.java.dospring.payload.request.ChangePasswordRequest;
 import com.java.dospring.payload.request.LogoutDeviceRequest;
 import com.java.dospring.payload.request.LogoutRequest;
 import com.java.dospring.payload.request.RefreshRequest;
+import com.java.dospring.payload.request.RevokeSessionRequest;
 import com.java.dospring.payload.request.SignUpRequest;
 import com.java.dospring.payload.response.AuthResponse;
 import com.java.dospring.payload.response.MessageResponse;
+import com.java.dospring.payload.response.SessionInfoResponse;
 import com.java.dospring.security.service.UserDetailsImpl;
 import com.java.dospring.service.AuthService;
 
@@ -16,6 +19,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Authentication API (Enterprise V4).
@@ -27,6 +32,9 @@ import org.springframework.web.bind.annotation.*;
  * - POST /api/auth/logout
  * - POST /api/auth/logout-all
  * - POST /api/auth/logout-device
+ * - GET  /api/auth/sessions
+ * - POST /api/auth/revoke-session
+ * - POST /api/auth/change-password
  *
  * Backward compatibility:
  * - /signin -> /login
@@ -81,5 +89,42 @@ public class AuthController {
                                         @AuthenticationPrincipal UserDetailsImpl principal) {
     authService.logoutDevice(principal.getId(), request.getDeviceId());
     return ResponseEntity.ok(new MessageResponse("Logged out from device"));
+  }
+
+  /**
+   * Lists active sessions for the current user.
+   *
+   * <p>Does not return refresh token values.
+   */
+  @GetMapping("/sessions")
+  public ResponseEntity<List<SessionInfoResponse>> sessions(@AuthenticationPrincipal UserDetailsImpl principal) {
+    return ResponseEntity.ok(authService.listActiveSessions(principal.getId()));
+  }
+
+  /**
+   * Revokes a specific session by its ID (useful for account security pages).
+   */
+  @PostMapping("/revoke-session")
+  public ResponseEntity<?> revokeSession(@Valid @RequestBody RevokeSessionRequest request,
+                                         @AuthenticationPrincipal UserDetailsImpl principal) {
+    authService.revokeSession(principal.getId(), request.getSessionId());
+    return ResponseEntity.ok(new MessageResponse("Session revoked"));
+  }
+
+  /**
+   * Changes the user's password.
+   *
+   * <p>Security behavior:
+   * <ul>
+   *   <li>Validates current password</li>
+   *   <li>Enforces password policy + history</li>
+   *   <li>Revokes all refresh tokens (forces re-login on all devices)</li>
+   * </ul>
+   */
+  @PostMapping("/change-password")
+  public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordRequest request,
+                                          @AuthenticationPrincipal UserDetailsImpl principal) {
+    authService.changePassword(principal.getId(), request.getCurrentPassword(), request.getNewPassword());
+    return ResponseEntity.ok(new MessageResponse("Password changed. Please login again."));
   }
 }

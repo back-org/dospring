@@ -1,5 +1,10 @@
 package com.java.dospring.payload.response;
 
+/**
+ * MessageResponse.
+ *
+ * <p>Enterprise V4+ documentation block.
+ */
 public class MessageResponse {
 	  private String message;
 

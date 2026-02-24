@@ -2,6 +2,11 @@ package com.java.dospring.payload.response;
 
 import java.util.List;
 
+/**
+ * UserInfoResponse.
+ *
+ * <p>Enterprise V4+ documentation block.
+ */
 public class UserInfoResponse {
 	  private String id;
 	  private String username;

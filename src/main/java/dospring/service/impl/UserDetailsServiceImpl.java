@@ -12,6 +12,11 @@ import com.java.dospring.repository.UserRepository;
 
 
 @Service
+/**
+ * UserDetailsServiceImpl.
+ *
+ * <p>Enterprise V4+ documentation block.
+ */
 public class UserDetailsServiceImpl implements UserDetailsService {
   @Autowired
   UserRepository userRepository;
