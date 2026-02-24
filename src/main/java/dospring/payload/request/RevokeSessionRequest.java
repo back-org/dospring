@@ -1,4 +1,4 @@
-package com.java.dospring.payload.request;
+package dospring.payload.request;
 
 import jakarta.validation.constraints.NotNull;
 

@@ -1,5 +1,6 @@
-package com.java.dospring.model;
+package dospring.model;
 
+import dospring.model.Booking;
 import jakarta.persistence.*;
 import lombok.*;
 

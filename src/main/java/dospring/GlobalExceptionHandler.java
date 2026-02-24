@@ -1,4 +1,4 @@
-package com.java.dospring;
+package dospring;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

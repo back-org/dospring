@@ -67,6 +67,11 @@
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-redis</artifactId>
+    </dependency>
+
     <!-- OpenAPI / Swagger UI -->
     <dependency>
       <groupId>org.springdoc</groupId>
@@ -80,6 +85,19 @@
       <artifactId>bucket4j_jdk17-core</artifactId>
       <version>8.16.0</version>
       <scope>compile</scope>
+    </dependency>
+    <!-- Source: https://mvnrepository.com/artifact/com.github.vladimir-bukhtoyarov/bucket4j-redis -->
+    <dependency>
+      <groupId>com.github.vladimir-bukhtoyarov</groupId>
+      <artifactId>bucket4j-redis</artifactId>
+      <version>8.0.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- Lettuce Redis client -->
+    <dependency>
+      <groupId>io.lettuce</groupId>
+      <artifactId>lettuce-core</artifactId>
+      <version>6.3.2.RELEASE</version>
     </dependency>
 
     <!-- Cache -->

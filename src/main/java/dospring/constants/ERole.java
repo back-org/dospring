@@ -1,4 +1,4 @@
-package com.java.dospring.constants;
+package dospring.constants;
 
 /**
  * ERole.

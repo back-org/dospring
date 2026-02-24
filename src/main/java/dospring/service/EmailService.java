@@ -1,6 +1,6 @@
-package com.java.dospring.service;
+package dospring.service;
 
-import com.java.dospring.model.Booking;
+import dospring.model.Booking;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;

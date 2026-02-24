@@ -1,4 +1,4 @@
-package com.java.dospring.crypto;
+package dospring.crypto;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;

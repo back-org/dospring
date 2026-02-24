@@ -1,18 +1,11 @@
-package com.java.dospring.controller;
+package dospring.controller;
 
-import com.java.dospring.payload.request.LoginRequest;
-import com.java.dospring.payload.request.ChangePasswordRequest;
-import com.java.dospring.payload.request.LogoutDeviceRequest;
-import com.java.dospring.payload.request.LogoutRequest;
-import com.java.dospring.payload.request.RefreshRequest;
-import com.java.dospring.payload.request.RevokeSessionRequest;
-import com.java.dospring.payload.request.SignUpRequest;
-import com.java.dospring.payload.response.AuthResponse;
-import com.java.dospring.payload.response.MessageResponse;
-import com.java.dospring.payload.response.SessionInfoResponse;
-import com.java.dospring.security.service.UserDetailsImpl;
-import com.java.dospring.service.AuthService;
-
+import dospring.payload.request.*;
+import dospring.payload.response.AuthResponse;
+import dospring.payload.response.MessageResponse;
+import dospring.payload.response.SessionInfoResponse;
+import dospring.service.AuthService;
+import dospring.service.impl.UserDetailsImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 

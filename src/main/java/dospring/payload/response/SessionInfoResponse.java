@@ -1,4 +1,4 @@
-package com.java.dospring.payload.response;
+package dospring.payload.response;
 
 import java.time.Instant;
 

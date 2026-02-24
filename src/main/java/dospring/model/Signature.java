@@ -1,10 +1,12 @@
-package com.java.dospring.model;
+package dospring.model;
+
+import jakarta.xml.bind.DatatypeConverter;
 
 import java.security.SignatureException;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
+
  
 /**
  * This class defines common routines for generating authentication signatures
@@ -16,13 +18,13 @@ public class Signature {
      * Computes RFC 2104-compliant HMAC signature. * @param data The data to be
      * signed.
      * 
-     * @param key
+     * @param data
      *            The signing key.
      * @return The Base64-encoded RFC 2104-compliant HMAC signature.
-     * @throws java.security.SignatureException
+     * @throws SignatureException
      *             when signature generation fails
      */
-    public static String calculateRFC2104HMAC(String data, String secret) throws java.security.SignatureException {
+    public static String calculateRFC2104HMAC(String data, String secret) throws SignatureException {
         String result;
         try {
  

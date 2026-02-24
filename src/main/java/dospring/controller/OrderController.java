@@ -1,9 +1,8 @@
-package com.java.dospring.controller;
+package dospring.controller;
 
-import com.java.dospring.model.Order;
-import com.java.dospring.payload.response.MessageResponse;
-import com.java.dospring.service.OrderService;
-
+import dospring.model.Order;
+import dospring.payload.response.MessageResponse;
+import dospring.service.OrderService;
 import jakarta.validation.constraints.NotBlank;
 
 import org.springframework.http.ResponseEntity;

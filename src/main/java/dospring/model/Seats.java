@@ -1,4 +1,4 @@
-package com.java.dospring.model;
+package dospring.model;
 
 import java.io.Serializable;
 

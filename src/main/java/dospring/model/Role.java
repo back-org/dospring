@@ -1,9 +1,9 @@
-package com.java.dospring.model;
+package dospring.model;
 
 import java.io.Serializable;
 
-import com.java.dospring.constants.ERole;
 
+import dospring.constants.ERole;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -1,4 +1,4 @@
-package com.java.dospring.config;
+package dospring.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

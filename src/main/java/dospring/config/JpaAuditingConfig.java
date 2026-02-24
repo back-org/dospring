@@ -1,4 +1,4 @@
-package com.java.dospring.config;
+package dospring.config;
 
 import com.java.dospring.security.AuditorAwareImpl;
 import org.springframework.context.annotation.Bean;

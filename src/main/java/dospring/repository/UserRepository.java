@@ -1,10 +1,10 @@
-package com.java.dospring.repository;
+package dospring.repository;
 
 import java.util.Optional;
 
+import dospring.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.java.dospring.model.User;
 
 /**
  * UserRepository.

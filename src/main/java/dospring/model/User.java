@@ -1,17 +1,16 @@
-package com.java.dospring.model;
+package dospring.model;
 
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+import dospring.crypto.EncryptedStringConverter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-
-import com.java.dospring.crypto.EncryptedStringConverter;
 
 /**
  * User entity.

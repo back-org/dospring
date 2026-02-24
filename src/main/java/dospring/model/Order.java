@@ -1,11 +1,11 @@
-package com.java.dospring.model;
+package dospring.model;
 
 import java.io.Serializable;
 
+import dospring.crypto.EncryptedStringConverter;
 import jakarta.persistence.*;
 import lombok.*;
 
-import com.java.dospring.crypto.EncryptedStringConverter;
 
 /**
  * Payment order (Razorpay).

@@ -1,9 +1,9 @@
-package com.java.dospring.config;
+package dospring.config;
 
-import com.java.dospring.security.RateLimitFilter;
-import com.java.dospring.security.jwt.AuthEntryPointJwt;
-import com.java.dospring.security.jwt.AuthTokenFilter;
-import com.java.dospring.security.service.UserDetailsServiceImpl;
+import dospring.security.AuthEntryPointJwt;
+import dospring.security.AuthTokenFilter;
+import dospring.security_support.RateLimitFilter;
+import dospring.service.impl.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -36,7 +36,7 @@ public class SecurityConfig {
 
   @Bean
   public DaoAuthenticationProvider authenticationProvider(UserDetailsServiceImpl userDetailsService,
-                                                         PasswordEncoder passwordEncoder) {
+                                                          PasswordEncoder passwordEncoder) {
     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
     authProvider.setUserDetailsService(userDetailsService);
     authProvider.setPasswordEncoder(passwordEncoder);

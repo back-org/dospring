@@ -1,10 +1,9 @@
-package com.java.dospring.service;
+package dospring.service;
 
-import com.java.dospring.model.Order;
-import com.java.dospring.model.User;
-import com.java.dospring.repository.OrderRepository;
-import com.java.dospring.repository.UserRepository;
-
+import dospring.model.Order;
+import dospring.model.User;
+import dospring.repository.OrderRepository;
+import dospring.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,4 +1,4 @@
-package com.java.dospring.model;
+package dospring.model;
 
 import jakarta.persistence.*;
 import lombok.*;

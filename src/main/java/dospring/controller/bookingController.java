@@ -1,8 +1,7 @@
-package com.java.dospring.controller;
+package dospring.controller;
 
-import com.java.dospring.model.Booking;
-import com.java.dospring.repository.BookingRepository;
-
+import dospring.model.Booking;
+import dospring.repository.BookingRepository;
 import jakarta.validation.Valid;
 
 import org.springframework.data.domain.Page;

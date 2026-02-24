@@ -1,11 +1,12 @@
-package com.java.dospring.repository;
+package dospring.repository;
 
 import java.util.Date;
 import java.util.List;
 
+import dospring.model.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.java.dospring.model.Booking;
+
 
 /**
  * BookingRepository.

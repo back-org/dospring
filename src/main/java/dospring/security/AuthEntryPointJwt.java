@@ -1,4 +1,4 @@
-package com.java.dospring.security.jwt;
+package dospring.security;
 
 import java.io.IOException;
 import jakarta.servlet.ServletException;

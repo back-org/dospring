@@ -1,22 +1,21 @@
-package com.java.dospring.service;
+package dospring.service;
 
-import com.java.dospring.constants.ERole;
-import com.java.dospring.model.PasswordHistory;
-import com.java.dospring.model.RefreshToken;
-import com.java.dospring.model.Role;
-import com.java.dospring.model.User;
-import com.java.dospring.payload.request.LoginRequest;
-import com.java.dospring.payload.request.RefreshRequest;
-import com.java.dospring.payload.request.SignUpRequest;
-import com.java.dospring.payload.response.AuthResponse;
-import com.java.dospring.payload.response.SessionInfoResponse;
-import com.java.dospring.repository.PasswordHistoryRepository;
-import com.java.dospring.repository.RefreshTokenRepository;
-import com.java.dospring.repository.RoleRepository;
-import com.java.dospring.repository.UserRepository;
-import com.java.dospring.security.jwt.JwtUtils;
-import com.java.dospring.security.service.UserDetailsImpl;
-
+import dospring.constants.ERole;
+import dospring.model.PasswordHistory;
+import dospring.model.RefreshToken;
+import dospring.model.Role;
+import dospring.model.User;
+import dospring.payload.request.LoginRequest;
+import dospring.payload.request.RefreshRequest;
+import dospring.payload.request.SignUpRequest;
+import dospring.payload.response.AuthResponse;
+import dospring.payload.response.SessionInfoResponse;
+import dospring.repository.PasswordHistoryRepository;
+import dospring.repository.RefreshTokenRepository;
+import dospring.repository.RoleRepository;
+import dospring.repository.UserRepository;
+import dospring.security.JwtUtils;
+import dospring.service.impl.UserDetailsImpl;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.nio.charset.StandardCharsets;

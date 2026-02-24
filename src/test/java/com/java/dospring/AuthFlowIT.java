@@ -1,15 +1,14 @@
 package com.java.dospring;
 
-import com.java.dospring.payload.request.LoginRequest;
-import com.java.dospring.payload.request.RefreshRequest;
-import com.java.dospring.payload.request.SignUpRequest;
-import com.java.dospring.payload.response.AuthResponse;
-import com.java.dospring.payload.response.MessageResponse;
-
+import dospring.payload.request.LoginRequest;
+import dospring.payload.request.RefreshRequest;
+import dospring.payload.request.SignUpRequest;
+import dospring.payload.response.AuthResponse;
+import dospring.payload.response.MessageResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 
 import org.springframework.beans.factory.annotation.Autowired;

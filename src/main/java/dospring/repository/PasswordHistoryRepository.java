@@ -1,10 +1,11 @@
-package com.java.dospring.repository;
+package dospring.repository;
 
 import java.util.List;
 
+import dospring.model.PasswordHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.java.dospring.model.PasswordHistory;
+
 
 /**
  * PasswordHistoryRepository.

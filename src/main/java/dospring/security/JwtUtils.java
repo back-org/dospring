@@ -1,4 +1,4 @@
-package com.java.dospring.security.jwt;
+package dospring.security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Claims;
