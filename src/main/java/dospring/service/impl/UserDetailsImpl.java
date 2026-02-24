@@ -1,4 +1,4 @@
-package security.jwt.services;
+package com.java.dospring.security.service;
 
 import java.util.Collection;
 import java.util.List;
@@ -11,19 +11,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import security.pojo.User;
+import com.java.dospring.model.User;
 
 
 
 public class UserDetailsImpl implements UserDetails {
 	  private static final long serialVersionUID = 1L;
-	  private String id;
+	  private Long id;
 	  private String username;
 	  private String email;
 	  @JsonIgnore
 	  private String password;
 	  private Collection<? extends GrantedAuthority> authorities;
-	  public UserDetailsImpl(String id, String username, String email, String password,
+	  public UserDetailsImpl(Long id, String username, String email, String password,
 	      Collection<? extends GrantedAuthority> authorities) {
 	    this.id = id;
 	    this.username = username;
@@ -46,7 +46,7 @@ public class UserDetailsImpl implements UserDetails {
 	  public Collection<? extends GrantedAuthority> getAuthorities() {
 	    return authorities;
 	  }
-	  public String getId() {
+	  public Long getId() {
 	    return id;
 	  }
 	  public String getEmail() {

@@ -1,13 +1,12 @@
-package security.repository;
+package com.java.dospring.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import security.pojo.ERole;
-import security.pojo.Role;
+import com.java.dospring.constants.ERole;
+import com.java.dospring.model.Role;
 
-public interface RoleRepository extends MongoRepository<Role, String>{
-	Optional<Role> findByName(ERole name);
-
+public interface RoleRepository extends JpaRepository<Role, Long> {
+  Optional<Role> findByName(ERole name);
 }

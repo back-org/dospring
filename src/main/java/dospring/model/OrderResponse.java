@@ -1,4 +1,4 @@
-package FlightBooking.pojo;
+package com.java.dospring.model;
 
 import lombok.Data;
 

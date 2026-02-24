@@ -1,14 +1,13 @@
-package security.repository;
+package com.java.dospring.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import security.pojo.User;
+import com.java.dospring.model.User;
 
-public interface UserRepository extends MongoRepository<User, String>{
-	Optional<User> findByUsername(String username);
-	Boolean existsByUsername(String username);
-	Boolean existsByEmail(String email);
-
+public interface UserRepository extends JpaRepository<User, Long> {
+  Optional<User> findByUsername(String username);
+  Boolean existsByUsername(String username);
+  Boolean existsByEmail(String email);
 }

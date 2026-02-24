@@ -1,21 +1,31 @@
-package dospring.model;
+package com.java.dospring.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * Static flight data (schedule).
+ */
 @Getter
 @Setter
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "flightData")
-public class FlightData {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int flight_id;
-    private int flight_number;
-    private String departure_time;
-    private String arrival_time;
+@Table(name = "flight_data")
+public class FlightData extends Auditable {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "flight_id")
+  private Long flightId;
+
+  @Column(name = "flight_number")
+  private Integer flightNumber;
+
+  @Column(name = "departure_time", length = 30)
+  private String departureTime;
+
+  @Column(name = "arrival_time", length = 30)
+  private String arrivalTime;
 }

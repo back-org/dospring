@@ -1,4 +1,4 @@
-package dospring.model;
+package com.java.dospring.model;
 
 import java.security.SignatureException;
 

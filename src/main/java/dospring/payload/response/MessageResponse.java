@@ -1,4 +1,4 @@
-package security.payload.response;
+package com.java.dospring.payload.response;
 
 public class MessageResponse {
 	  private String message;

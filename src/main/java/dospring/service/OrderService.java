@@ -1,52 +1,47 @@
-package FlightBooking.service;
+package com.java.dospring.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.java.dospring.model.Order;
+import com.java.dospring.model.User;
+import com.java.dospring.repository.OrderRepository;
+import com.java.dospring.repository.UserRepository;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import FlightBooking.pojo.Booking;
-import FlightBooking.pojo.Order;
-import FlightBooking.pojo.Signature;
-import FlightBooking.repository.OrderRepository;
-import lombok.extern.slf4j.Slf4j;
- 
+import java.util.Optional;
 
-@Slf4j
+/**
+ * Order persistence service (Razorpay related).
+ * Keep business logic here, not in controllers.
+ */
 @Service
 public class OrderService {
- 
-    @Autowired
-    private OrderRepository orderRepository;
- 
-    @Transactional
-    public Order saveOrder(final String razorpayOrderId, final String userId) {
-        Order order = new Order();
-        order.setRazorpayOrderId(razorpayOrderId);
-        order.setUserId(userId);
-        return orderRepository.save(order);
-    }
- 
-    @Transactional
-    public String validateAndUpdateOrder(final String razorpayOrderId, final String razorpayPaymentId, final String razorpaySignature, final String secret) {
-        String errorMsg = null;
-        try {
-            Order order = orderRepository.findByRazorpayOrderId(razorpayOrderId);
-           
-            // Verify if the razorpay signature matches the generated one to
-            // confirm the authenticity of the details returned
-            String generatedSignature = Signature.calculateRFC2104HMAC(order.getRazorpayOrderId() + "|" + razorpayPaymentId, secret);
-            if (generatedSignature.equals(razorpaySignature)) {
-                order.setRazorpayOrderId(razorpayOrderId);
-                order.setRazorpayPaymentId(razorpayPaymentId);
-                order.setRazorpaySignature(razorpaySignature);
-                orderRepository.save(order);
-            } else {
-                errorMsg = "Payment validation failed: Signature doesn't match";
-            }
-        } catch (Exception e) {
-            log.error("Payment validation failed", e);
-            errorMsg = e.getMessage();
-        }
-        return errorMsg;
-    }
+
+  private final OrderRepository orderRepository;
+  private final UserRepository userRepository;
+
+  public OrderService(OrderRepository orderRepository, UserRepository userRepository) {
+    this.orderRepository = orderRepository;
+    this.userRepository = userRepository;
+  }
+
+  @Transactional
+  public Order createOrder(String razorpayOrderId, Long userId) {
+    Optional<User> user = userRepository.findById(userId);
+    Order order = Order.builder()
+        .razorpayOrderId(razorpayOrderId)
+        .user(user.orElse(null))
+        .build();
+    return orderRepository.save(order);
+  }
+
+  @Transactional
+  public Order markPaid(String razorpayOrderId, String paymentId, String signature) {
+    Order order = orderRepository.findByRazorpayOrderId(razorpayOrderId)
+        .orElseThrow(() -> new IllegalArgumentException("Order not found"));
+
+    order.setRazorpayPaymentId(paymentId);
+    order.setRazorpaySignature(signature);
+    return orderRepository.save(order);
+  }
 }

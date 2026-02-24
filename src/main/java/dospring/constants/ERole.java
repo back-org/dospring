@@ -1,4 +1,4 @@
-package dospring.constants;
+package com.java.dospring.constants;
 
 public enum ERole {
 	 ROLE_USER,

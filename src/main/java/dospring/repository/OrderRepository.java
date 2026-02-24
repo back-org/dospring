@@ -1,13 +1,13 @@
-package FlightBooking.repository;
+package com.java.dospring.repository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import FlightBooking.pojo.Order;
- 
- 
+import com.java.dospring.model.Order;
+
 @Repository
-public interface OrderRepository extends MongoRepository<Order,String> {
- 
-    Order findByRazorpayOrderId(String orderId);
+public interface OrderRepository extends JpaRepository<Order, Long> {
+  Optional<Order> findByRazorpayOrderId(String orderId);
 }

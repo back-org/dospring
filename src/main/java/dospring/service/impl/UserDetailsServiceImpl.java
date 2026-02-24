@@ -1,4 +1,4 @@
-package security.jwt.services;
+package com.java.dospring.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import security.pojo.User;
-import security.repository.UserRepository;
+import com.java.dospring.model.User;
+import com.java.dospring.repository.UserRepository;
 
 
 @Service

@@ -1,4 +1,4 @@
-package security.payload.response;
+package com.java.dospring.payload.response;
 
 import java.util.List;
 

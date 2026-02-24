@@ -1,0 +1,44 @@
+package com.java.dospring.model;
+
+import java.time.Instant;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.EntityListeners;
+
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * Base auditable entity:
+ * - createdAt / updatedAt: timestamps (UTC)
+ * - createdBy / updatedBy: username from Spring Security context (best-effort)
+ */
+@Getter
+@Setter
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
+public abstract class Auditable {
+
+  @CreatedDate
+  @Column(name = "created_at", nullable = false, updatable = false)
+  private Instant createdAt;
+
+  @LastModifiedDate
+  @Column(name = "updated_at", nullable = false)
+  private Instant updatedAt;
+
+  @CreatedBy
+  @Column(name = "created_by", length = 100)
+  private String createdBy;
+
+  @LastModifiedBy
+  @Column(name = "updated_by", length = 100)
+  private String updatedBy;
+}

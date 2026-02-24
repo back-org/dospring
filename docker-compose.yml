@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: dospring
+      POSTGRES_USER: dospring
+      POSTGRES_PASSWORD: dospring
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dospring -d dospring"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  api:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/dospring
+      SPRING_DATASOURCE_USERNAME: dospring
+      SPRING_DATASOURCE_PASSWORD: dospring
+      JWT_SECRET: "change-me-in-env-please-change-me-in-env-please"
+      APP_CORS_ORIGINS: "http://localhost:3000"
+    ports:
+      - "8080:8080"

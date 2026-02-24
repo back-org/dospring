@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: dospring
+  profiles:
+    default: dev
+
+server:
+  port: ${SERVER_PORT:8080}
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: 1024
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,flyway
+  endpoint:
+    health:
+      show-details: when_authorized
+
+app:
+  security:
+    cors-origins: ${APP_CORS_ORIGINS:http://localhost:3000}
+  jwt:
+    issuer: ${JWT_ISSUER:dospring}
+    secret: ${JWT_SECRET:change-me-in-env-please-change-me-in-env-please}
+    access-ttl-seconds: ${JWT_ACCESS_TTL_SECONDS:900}   # 15 min
+    refresh-ttl-seconds: ${JWT_REFRESH_TTL_SECONDS:2592000} # 30 days
+  auth:
+    max-failed-attempts: ${AUTH_MAX_FAILED_ATTEMPTS:5}
+    lock-minutes: ${AUTH_LOCK_MINUTES:15}
+    password:
+      min-length: ${AUTH_PWD_MIN_LENGTH:12}
+      history: ${AUTH_PWD_HISTORY:5}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+logging:
+  level:
+    org.springframework.web: INFO
+    org.hibernate.SQL: INFO
+  file:
+    name: logs/app.log
